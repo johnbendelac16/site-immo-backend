@@ -31,29 +31,45 @@ router.get("/proprietes", async (req, res) => {
 })
 
 // POST /api/proprietes
+// POST /api/proprietes
 router.post("/proprietes", async (req, res) => {
   try {
-    const { title, price, city, image, rooms, area, floor, hasParking, description, type, status, tags } = req.body
+    const {
+      title,
+      price,
+      city,
+      image,
+      rooms,
+      area,
+      floor,
+      hasParking,
+      description,
+      type,
+      status,
+      tags,
+    } = req.body
 
-const doc = await PropertyModel.create({
-  title,
-  price: price || "Prix sur demande",
-  city: city || "Non spécifié",
-  image: image || "",
-  rooms: rooms || 0,
-  area: area || 0,
-  floor: floor || 0,
-  hasParking: !!hasParking,
-  description: description || "",
-  type: type || "appartement",
-  status: status || "a_vendre",
-  tags: Array.isArray(tags)
-    ? tags
-    : typeof tags === "string"
-    ? tags.split(",").map((t) => t.trim()).filter(Boolean)
-    : [],
-})
-
+    const doc = await PropertyModel.create({
+      title,
+      price: price || "Prix sur demande",
+      city: city || "Non spécifié",
+      image: image || "",
+      rooms: rooms || 0,
+      area: area || 0,
+      floor: floor || 0,
+      hasParking: !!hasParking,
+      description: description || "",
+      type: type || "appartement",
+      status: status || "a_vendre",
+      tags: Array.isArray(tags)
+        ? tags
+        : typeof tags === "string"
+        ? tags
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean)
+        : [],
+    })
 
     res.json({
       id: doc._id.toString(),
@@ -66,6 +82,9 @@ const doc = await PropertyModel.create({
       floor: doc.floor,
       hasParking: doc.hasParking,
       description: doc.description,
+      type: doc.type,       // ✅ ajouter
+      status: doc.status,   // ✅ ajouter
+      tags: doc.tags,       // ✅ ajouter
     })
   } catch (err) {
     console.error("Erreur POST /api/proprietes:", err)
