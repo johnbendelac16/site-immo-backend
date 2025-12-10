@@ -34,6 +34,7 @@ router.get("/proprietes", async (req, res) => {
 // POST /api/proprietes
 router.post("/proprietes", async (req, res) => {
   try {
+    console.log("=== POST /api/proprietes BODY ===", req.body)
     const {
       title,
       price,
@@ -69,6 +70,13 @@ router.post("/proprietes", async (req, res) => {
             .map((t) => t.trim())
             .filter(Boolean)
         : [],
+    })
+
+     console.log("=== DOC CREATED ===", {
+      id: doc._id.toString(),
+      type: doc.type,
+      status: doc.status,
+      tags: doc.tags,
     })
 
     res.json({
