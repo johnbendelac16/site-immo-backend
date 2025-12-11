@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContactModel = void 0;
+// models/Contact.ts
 const mongoose_1 = __importDefault(require("mongoose"));
 const contactSchema = new mongoose_1.default.Schema({
     name: { type: String, required: true },
@@ -12,5 +13,9 @@ const contactSchema = new mongoose_1.default.Schema({
     city: String,
     budget: String,
     message: String,
+    source: String,
+    projectType: String,
+    timeline: String,
+    cities: String,
 }, { timestamps: true });
 exports.ContactModel = mongoose_1.default.models.Contact || mongoose_1.default.model("Contact", contactSchema);
